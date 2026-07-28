@@ -1,0 +1,11 @@
+# Fichiers secrets
+.env
+
+# Dépendances Backend (FastAPI)
+venv/
+__pycache__/
+
+# Dépendances Frontend (React)
+node_modules/
+dist/
+.DS_Store
