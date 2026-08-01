@@ -1,55 +1,108 @@
 import React, { useState } from 'react';
-import keycloak from '../../shared/utils/keycloak';
+import './App.css';
+
+import Sidebar from './components/Sidebar';
+import ChatHeader from './components/ChatHeader';
+import MessageList from './components/MessageList';
+import ChatInput from './components/ChatInput';
+import WelcomeScreen from './components/WelcomeScreen';
+import { useAuth } from '../auth/AuthProvider';
 
 function App() {
-  const username = keycloak.tokenParsed?.preferred_username;
-  const isAdmin = keycloak.hasRealmRole('ADMIN');
-
-  const handleLogout = () => {
-    keycloak.logout();
-  };
+  const [messages, setMessages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   
-  const [reponseIA, setReponseIA] = useState("");
+  // 1. Nouvelles variables d'état pour la Sidebar
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [chatHistory, setChatHistory] = useState([]); // Le faux backend en attendant la BDD
+  
+  const { isAuthenticated, keycloak } = useAuth();
+  const username = keycloak.tokenParsed?.preferred_username;
 
-  const envoyerMessageAuChatbot = async () => {
-    try {
-      // Remplace l'URL par la route exacte de ton backend FastAPI
-      const response = await fetch('http://localhost:8000/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${keycloak.token}` // Le pass de sécurité !
-        },
-        body: JSON.stringify({ prompt: "Bonjour l'IA !" })
-      });
+  const handleLogout = () => { keycloak.logout(); };
 
-      if (response.status === 401) {
-        setReponseIA("Erreur 401 : Accès refusé par FastAPI.");
-        return;
-      }
+  // 2. Fonction pour ouvrir/fermer la barre
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
-      const data = await response.json();
-      setReponseIA(data.message); // Adapte selon la structure de ton JSON
+  // 3. Fonction Nouveau Chat (Sauvegarde la session dans l'historique dynamique)
+  const handleNewChat = () => {
+    if (messages.length > 0) {
+      // On crée un objet "Chat" pour l'historique
+      const historyItem = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }),
+        title: messages[0].content, // Le titre devient la 1ère question posée
+        messages: [...messages]
+      };
       
-    } catch (error) {
-      console.error("Erreur de communication :", error);
-      setReponseIA("Erreur de connexion au serveur.");
+      // On l'ajoute au début du tableau d'historique
+      setChatHistory((prev) => [historyItem, ...prev]);
+      
+      // On vide l'écran actuel
+      setMessages([]);
     }
   };
 
-  return (
-    <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-      <h1>Interface du Chatbot</h1>
-      <p>Bienvenue, {username} !</p>
-      
-      {/* Bouton pour déclencher l'appel API sécurisé */}
-      <button onClick={envoyerMessageAuChatbot} style={{ padding: '10px', background: '#007bff', color: 'white', borderRadius: '5px' }}>
-        Tester l'appel sécurisé vers FastAPI
-      </button>
+  const handleSendMessage = async (text) => {
+    if (!isAuthenticated) {
+      keycloak.login();
+      return; 
+    }
 
-      {/* Affichage de la réponse */}
-      <div style={{ marginTop: '20px', padding: '10px', border: '1px solid #ccc' }}>
-        <strong>Réponse du serveur : </strong> {reponseIA}
+    const newUserMessage = { role: 'user', content: text };
+    setMessages((prevMessages) => [...prevMessages, newUserMessage]);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:8000/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${keycloak.token}` },
+        body: JSON.stringify({ prompt: text })
+      });
+
+      if (!response.ok) throw new Error("Erreur de connexion");
+
+      const data = await response.json();
+      const newBotMessage = { role: 'bot', content: data.message };
+      setMessages((prevMessages) => [...prevMessages, newBotMessage]);
+    } catch (error) {
+      setMessages((prevMessages) => [...prevMessages, { role: 'bot', content: "Erreur serveur." }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const isChatEmpty = messages.length === 0;
+
+  return (
+    <div className="app-layout">
+      {/* On passe nos variables d'état à la Sidebar */}
+      <Sidebar 
+        isOpen={isSidebarOpen} 
+        onNewChat={handleNewChat} 
+        chatHistory={chatHistory} 
+      />
+
+      <div className="chat-container">
+        {isAuthenticated && (
+          <button className="logout-button" onClick={handleLogout}>Déconnexion</button>
+        )}
+
+        {/* On donne le pouvoir d'ouvrir la barre au bouton du Header */}
+        <ChatHeader toggleSidebar={toggleSidebar} />
+        
+        {!isChatEmpty && (
+          <main className="chat-main">
+            <MessageList messages={messages} isLoading={isLoading} />
+          </main>
+        )}
+
+        <div className={`dynamic-input-area ${isChatEmpty ? 'centered' : 'bottom'}`}>
+          {isChatEmpty && <WelcomeScreen />}
+          <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+        </div>
       </div>
     </div>
   );

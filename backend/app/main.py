@@ -49,3 +49,6 @@ async def chat_endpoint(message: Message, utilisateur: dict = Depends(verifier_t
     return {
         "message": f"Accès sécurisé accordé à {nom_utilisateur}. Le backend a bien reçu : '{message.prompt}'"
     }
+@app.get("/")
+def read_root():
+    return {"message": "Le backend API fonctionne !"}
