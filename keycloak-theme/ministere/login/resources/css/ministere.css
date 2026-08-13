@@ -1,17 +1,24 @@
-/* ========================================= */
-/* MODE CLAIR (Par défaut)                   */
-/* ========================================= */
-
-/* Supprimer l'image polygonale de Keycloak et forcer le fond clair */
-body, 
+body,
 .login-pf body,
-#keycloak-bg, 
+#keycloak-bg,
 .pf-v5-c-login {
     background-image: none !important;
     background-color: #f3f4f6 !important;
 }
 
-/* Carte de connexion claire avec bordure verte */
+#kc-header-wrapper {
+    font-size: 0 !important;
+    color: transparent !important;
+}
+
+#kc-header-wrapper::after {
+    content: "DALIL AI";
+    font-size: 2rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.12em !important;
+    color: #111827 !important;
+}
+
 .pf-v5-c-login__main,
 .login-pf-page .card-pf {
     background-color: #ffffff !important;
@@ -20,17 +27,22 @@ body,
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Inputs clairs */
 .pf-v5-c-form-control,
 input[type="text"],
 input[type="password"] {
     background-color: #f9fafb !important;
     color: #1f2937 !important;
-    border: 1px solid #e5e7eb !important;
+    border: 1px solid #d1d5db !important;
 }
 
-/* Boutons et Liens (Vert institutionnel) */
-.pf-v5-c-button.pf-m-primary, 
+.pf-v5-c-form-control:focus,
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #166534 !important;
+    box-shadow: 0 0 0 1px #166534 !important;
+}
+
+.pf-v5-c-button.pf-m-primary,
 #kc-login,
 input[type="submit"] {
     background-color: #166534 !important;
@@ -38,35 +50,71 @@ input[type="submit"] {
     color: #ffffff !important;
 }
 
-.pf-v5-c-button.pf-m-primary:hover, 
+.pf-v5-c-button.pf-m-primary:hover,
 #kc-login:hover,
 input[type="submit"]:hover {
     background-color: #14532d !important;
+    border-color: #14532d !important;
+}
+
+.pf-v5-c-input-group .pf-v5-c-button,
+.pf-v5-c-input-group button,
+.pf-v5-c-button.pf-m-control {
+    background: #f9fafb !important;
+    background-color: #f9fafb !important;
+    background-image: none !important;
+    color: #166534 !important;
+    border: 1px solid #d1d5db !important;
+    border-left: none !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+}
+
+.pf-v5-c-input-group .pf-v5-c-button:hover,
+.pf-v5-c-input-group button:hover,
+.pf-v5-c-button.pf-m-control:hover {
+    background: #f3f4f6 !important;
+    background-color: #f3f4f6 !important;
+    color: #14532d !important;
+}
+
+.pf-v5-c-input-group .pf-v5-c-button svg,
+.pf-v5-c-input-group button svg,
+.pf-v5-c-button.pf-m-control svg {
+    color: #166534 !important;
+    fill: currentColor !important;
+    stroke: currentColor !important;
 }
 
 a {
     color: #166534 !important;
 }
 
-/* ========================================= */
-/* MODE SOMBRE (Adaptation auto du système)  */
-/* ========================================= */
 @media (prefers-color-scheme: dark) {
-    
-    body, 
+    body,
     .login-pf body,
-    #keycloak-bg, 
+    #keycloak-bg,
     .pf-v5-c-login {
+        background-image: none !important;
         background-color: #111827 !important;
+    }
+
+    #kc-header-wrapper {
+        color: transparent !important;
+    }
+
+    #kc-header-wrapper::after {
+        content: "DALIL AI";
+        color: #f9fafb !important;
     }
 
     .pf-v5-c-login__main,
     .login-pf-page .card-pf {
-        background-color: #1f2937 !important; 
-        border-top: 4px solid #22c55e !important; 
+        background-color: #1f2937 !important;
+        border-top: 4px solid #22c55e !important;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5) !important;
     }
-    
+
     #kc-header-wrapper,
     .pf-v5-c-login__main *,
     .login-pf-page .card-pf * {
@@ -76,20 +124,60 @@ a {
     .pf-v5-c-form-control,
     input[type="text"],
     input[type="password"] {
-        background-color: #374151 !important; 
+        background-color: #374151 !important;
         color: #f9fafb !important;
         border: 1px solid #4b5563 !important;
     }
-}
 
-/* Bouton œil en mode sombre */
+    .pf-v5-c-form-control:focus,
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+        border-color: #22c55e !important;
+        box-shadow: 0 0 0 1px #22c55e !important;
+    }
+
+    .pf-v5-c-input-group .pf-v5-c-button,
+    .pf-v5-c-input-group button,
     .pf-v5-c-button.pf-m-control {
-        background-color: #374151 !important; 
-        color: #d1d5db !important; /* Gris clair pour contraster avec le fond sombre */
+        background: #374151 !important;
+        background-color: #374151 !important;
+        background-image: none !important;
+        color: #22c55e !important;
         border: 1px solid #4b5563 !important;
         border-left: none !important;
+        box-shadow: none !important;
+        opacity: 1 !important;
     }
 
+    .pf-v5-c-input-group .pf-v5-c-button:hover,
+    .pf-v5-c-input-group button:hover,
     .pf-v5-c-button.pf-m-control:hover {
-        color: #22c55e !important; /* Vert vif au survol */
+        background: #4b5563 !important;
+        background-color: #4b5563 !important;
+        color: #22c55e !important;
     }
+
+    .pf-v5-c-input-group .pf-v5-c-button svg,
+    .pf-v5-c-input-group button svg,
+    .pf-v5-c-button.pf-m-control svg {
+        color: #22c55e !important;
+        fill: currentColor !important;
+        stroke: currentColor !important;
+    }
+
+    a {
+        color: #22c55e !important;
+    }
+}
+
+@media (max-width: 600px) {
+    #kc-header-wrapper::after {
+        font-size: 1.6rem !important;
+    }
+
+    .pf-v5-c-login__main,
+    .login-pf-page .card-pf {
+        width: calc(100% - 30px) !important;
+        margin: 0 auto !important;
+    }
+}
