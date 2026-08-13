@@ -5,6 +5,7 @@ from app.modules.chat.router import router as chat_router
 from app.modules.auth.router import router as auth_router
 from app.core.database import engine
 from app.modules.chat.models import Base
+from app.modules.admin.router import router as admin_router
 
 # Créer les tables
 Base.metadata.create_all(bind=engine)
@@ -31,3 +32,5 @@ def read_root():
 @app.get("/health")
 def health_check():
     return {"status": "healthy"}
+
+app.include_router(admin_router)

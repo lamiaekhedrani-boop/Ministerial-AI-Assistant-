@@ -11,11 +11,14 @@ class Settings:
     DB_USER: str = os.getenv("DB_USER", "lamiae")
     DB_PASSWORD: str = os.getenv("DB_PASSWORD", "helloDataBase")
     
-    # Keycloak
+    # Keycloak - Client Public (React)
     KEYCLOAK_URL: str = os.getenv("KEYCLOAK_URL", "http://localhost:8080")
     KEYCLOAK_REALM: str = os.getenv("KEYCLOAK_REALM", "ministere-chatbot")
     KEYCLOAK_CLIENT_ID: str = os.getenv("KEYCLOAK_CLIENT_ID", "chat-app")
-    KEYCLOAK_CLIENT_SECRET: str = os.getenv("KEYCLOAK_CLIENT_SECRET", "80NK7xKrA04S3RV24qS4gxbz4xFN6Uk4DSWwxx2BKbgEdXT5i1bW5NTqk4KBO5IilZ1glsxevTUTBVYzwoIAlR")
+    
+    # Keycloak - Client Admin (FastAPI Service Account)
+    KEYCLOAK_ADMIN_CLIENT_ID: str = os.getenv("KEYCLOAK_ADMIN_CLIENT_ID", "fastapi-backend")
+    KEYCLOAK_ADMIN_CLIENT_SECRET: str = os.getenv("KEYCLOAK_ADMIN_CLIENT_SECRET", "")
     
     # CORS
     CORS_ORIGINS: list = ["http://localhost:5173", "http://localhost:3000"]
