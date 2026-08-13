@@ -1,0 +1,484 @@
+.sidebar {
+  width: 260px;
+  height: 100%;
+  flex-shrink: 0;
+  background-color: #111827;
+  color: #f9fafb;
+  margin-left: -260px;
+  overflow: visible;
+  position: relative;
+  z-index: 100;
+  transition:
+    margin-left 0.3s ease,
+    margin-right 0.3s ease;
+}
+
+.sidebar.open {
+  margin-left: 0;
+}
+
+.sidebar-content {
+  width: 260px;
+  height: 100%;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: visible;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   LOGO / NOM DE L'APPLICATION
+========================================================= */
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px 20px 8px;
+  color: #f9fafb;
+}
+
+.sidebar-brand-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #f9fafb;
+}
+
+.new-chat-button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: transparent;
+  color: white;
+  border: 1px solid #4b5563;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+}
+
+.new-chat-button:hover {
+  background-color: #374151;
+}
+
+.plus-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.history-section {
+  margin-top: 20px;
+  padding: 0 10px;
+}
+
+.history-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #8e8ea0;
+  margin: 0 0 10px 0;
+  padding-left: 10px;
+  text-transform: uppercase;
+}
+
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.history-empty {
+  padding: 12px 14px;
+  color: #8e8ea0;
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+.history-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  gap: 6px;
+  padding: 8px 8px 8px 10px;
+  border-radius: 8px;
+  cursor: default;
+  color: #ececf1;
+  transition: background-color 0.2s ease;
+}
+
+.history-item:hover {
+  background-color: #2a2b32;
+}
+
+.history-item.active {
+  background-color: #2a2b32;
+  border-left: 3px solid var(--primary-color);
+  padding-left: 7px;
+}
+
+.history-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.chat-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: #8e8ea0;
+}
+
+.history-content {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.history-text {
+  display: block;
+  min-width: 0;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-date {
+  display: block;
+  margin-top: 3px;
+  font-size: 0.65rem;
+  color: #8e8ea0;
+  white-space: nowrap;
+}
+
+.menu-dots-btn {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #a0a0a0;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 5px;
+  opacity: 0;
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.history-item:hover .menu-dots-btn,
+.history-item.active .menu-dots-btn {
+  opacity: 1;
+}
+
+.menu-dots-btn:hover {
+  background-color: #3f3f46;
+  color: #ffffff;
+}
+
+.session-dropdown {
+  position: absolute;
+  top: calc(100% - 4px);
+  right: 8px;
+  width: 190px;
+  background-color: #212121;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 6px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-sizing: border-box;
+}
+
+.dropdown-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  color: #e3e3e3;
+  padding: 10px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-align: left;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.dropdown-item svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.dropdown-item:hover {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.dropdown-item:hover svg {
+  opacity: 1;
+}
+
+.dropdown-item.delete:hover {
+  background-color: rgba(244, 63, 94, 0.1);
+  color: #f43f5e;
+}
+
+.dropdown-item.delete:hover svg {
+  stroke: #f43f5e;
+  opacity: 1;
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.modal-content {
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
+
+.modal-content h3 {
+  margin: 0 0 16px 0;
+  color: #f9fafb;
+  font-size: 1.1rem;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #4b5563;
+  border-radius: 8px;
+  background-color: #111827;
+  color: #f9fafb;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.modal-content input:focus {
+  outline: none;
+  border-color: var(--primary-color, #22c55e);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.modal-actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.modal-actions button[type="button"] {
+  background-color: transparent;
+  color: #9ca3af;
+}
+
+.modal-actions button[type="button"]:hover {
+  background-color: #374151;
+  color: #ffffff;
+}
+
+.modal-actions button[type="submit"] {
+  background-color: var(--primary-color, #22c55e);
+  color: white;
+}
+
+.modal-actions button[type="submit"]:hover:not(:disabled) {
+  background-color: var(--primary-hover, #16a34a);
+}
+
+.modal-actions button[type="submit"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+html[dir="rtl"] .sidebar {
+  margin-left: 0;
+  margin-right: -260px;
+}
+
+html[dir="rtl"] .sidebar.open {
+  margin-right: 0;
+}
+
+html[dir="rtl"] .sidebar-brand {
+  direction: rtl;
+}
+
+html[dir="rtl"] .history-item {
+  direction: rtl;
+}
+
+html[dir="rtl"] .history-item.active {
+  border-left: none;
+  border-right: 3px solid var(--primary-color);
+  padding-left: 8px;
+  padding-right: 7px;
+}
+
+html[dir="rtl"] .history-title {
+  padding-left: 0;
+  padding-right: 10px;
+}
+
+html[dir="rtl"] .new-chat-button {
+  direction: rtl;
+}
+
+html[dir="rtl"] .session-dropdown {
+  right: auto;
+  left: 8px;
+}
+
+html[dir="rtl"] .dropdown-item {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .history-content {
+  text-align: right;
+}
+
+html[dir="rtl"] .modal-content {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .modal-actions {
+  justify-content: flex-start;
+}
+
+@media (min-width: 768px) {
+  .sidebar-overlay {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    margin-left: -260px;
+    z-index: 100;
+    transition: margin-left 0.3s ease;
+  }
+
+  .sidebar.open {
+    margin-left: 0;
+  }
+
+  .sidebar-content {
+    height: 100vh;
+  }
+
+  html[dir="rtl"] .sidebar {
+    left: auto;
+    right: 0;
+    margin-left: 0;
+    margin-right: -260px;
+    transition: margin-right 0.3s ease;
+  }
+
+  html[dir="rtl"] .sidebar.open {
+    margin-right: 0;
+  }
+
+  .sidebar-overlay {
+    display: block;
+  }
+
+  .session-dropdown {
+    width: 190px;
+    max-width: calc(100vw - 30px);
+  }
+
+  .menu-dots-btn {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 400px) {
+  .sidebar {
+    width: 240px;
+  }
+
+  .sidebar-content {
+    width: 240px;
+    padding: 1rem;
+  }
+
+  html[dir="rtl"] .sidebar {
+    margin-right: -240px;
+  }
+
+  html[dir="rtl"] .sidebar.open {
+    margin-right: 0;
+  }
+
+  .session-dropdown {
+    width: 170px;
+  }
+}

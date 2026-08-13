@@ -1,0 +1,160 @@
+.admin-panel {
+  flex: 1;
+  width: 100%;
+  padding: 30px 40px;
+  overflow-y: auto;
+  background-color: var(--chat-bg);
+}
+
+.admin-panel h1 {
+  margin-bottom: 25px;
+  font-size: 2rem;
+  color: var(--text-main);
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.admin-tabs button {
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.95rem;
+  border-bottom: 2px solid transparent;
+}
+
+.admin-tabs button:hover {
+  color: var(--text-main);
+}
+
+.admin-tabs button.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+.admin-content {
+  width: 100%;
+}
+
+.create-user-form,
+.upload-document-form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.create-user-form input,
+.create-user-form select,
+.upload-document-form input {
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-size: 0.9rem;
+}
+
+.create-user-form input:focus,
+.create-user-form select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.create-user-form button,
+.upload-document-form button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.create-user-form button:hover,
+.upload-document-form button:hover {
+  background-color: var(--primary-hover);
+}
+
+.users-list,
+.documents-list {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.users-list table,
+.documents-list table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--chat-bg);
+}
+
+.users-list th,
+.users-list td,
+.documents-list th,
+.documents-list td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.users-list th,
+.documents-list th {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.users-list td,
+.documents-list td {
+  color: var(--text-main);
+  font-size: 0.9rem;
+}
+
+.users-list tbody tr:hover,
+.documents-list tbody tr:hover {
+  background-color: var(--bg-color);
+}
+
+.users-list td button,
+.documents-list td button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #dc2626;
+  color: white;
+  cursor: pointer;
+}
+
+.users-list td button:hover,
+.documents-list td button:hover {
+  background-color: #b91c1c;
+}
+
+@media (max-width: 767px) {
+  .admin-panel {
+    padding: 20px;
+  }
+
+  .create-user-form,
+  .upload-document-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .create-user-form input,
+  .create-user-form select,
+  .create-user-form button,
+  .upload-document-form input,
+  .upload-document-form button {
+    width: 100%;
+  }
+}

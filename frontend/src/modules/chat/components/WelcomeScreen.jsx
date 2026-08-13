@@ -1,11 +1,19 @@
 import React from 'react';
+import { useLanguage } from '../../../shared/contexts/LanguageContext';
 
-function WelcomeScreen() {
+const WelcomeScreen = () => {
+  const { t, dir } = useLanguage();
+
   return (
-    <div className="welcome-screen">
-      <h2>Comment puis-je vous aider aujourd'hui ?</h2>
+    <div
+      className="welcome-screen"
+      dir={dir}
+    >
+      <h1>
+        {t('chat.welcome')}
+      </h1>
     </div>
   );
-}
+};
 
 export default WelcomeScreen;

@@ -1,0 +1,27 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class Settings:
+    # Database
+    DB_HOST: str = os.getenv("DB_HOST", "127.0.0.1")
+    DB_PORT: int = int(os.getenv("DB_PORT", "5432"))
+    DB_NAME: str = os.getenv("DB_NAME", "ministere_chat")
+    DB_USER: str = os.getenv("DB_USER", "lamiae")
+    DB_PASSWORD: str = os.getenv("DB_PASSWORD", "helloDataBase")
+    
+    # Keycloak
+    KEYCLOAK_URL: str = os.getenv("KEYCLOAK_URL", "http://localhost:8080")
+    KEYCLOAK_REALM: str = os.getenv("KEYCLOAK_REALM", "ministere-chatbot")
+    KEYCLOAK_CLIENT_ID: str = os.getenv("KEYCLOAK_CLIENT_ID", "chat-app")
+    KEYCLOAK_CLIENT_SECRET: str = os.getenv("KEYCLOAK_CLIENT_SECRET", "80NK7xKrA04S3RV24qS4gxbz4xFN6Uk4DSWwxx2BKbgEdXT5i1bW5NTqk4KBO5IilZ1glsxevTUTBVYzwoIAlR")
+    
+    # CORS
+    CORS_ORIGINS: list = ["http://localhost:5173", "http://localhost:3000"]
+    
+    # Security
+    SECRET_KEY: str = os.getenv("SECRET_KEY", "14a82b065d4df28497de6c73eabf29b3572bbb7fb63ca839b817b370da77a731")
+    ALGORITHM: str = "RS256"
+
+settings = Settings()
