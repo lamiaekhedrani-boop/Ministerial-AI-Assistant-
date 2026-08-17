@@ -23,12 +23,10 @@ function ChatInput({ onSendMessage, isLoading }) {
 
     const text = inputText.trim();
 
-    // Rien à envoyer
     if (!text) {
       return;
     }
 
-    // Utilisateur non connecté
     if (!isAuthenticated) {
       sessionStorage.setItem(
         'pending_message',
@@ -42,7 +40,6 @@ function ChatInput({ onSendMessage, isLoading }) {
       return;
     }
 
-    // Utilisateur connecté
     if (!isLoading) {
       onSendMessage(text);
       setInputText('');

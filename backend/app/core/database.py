@@ -7,7 +7,6 @@ import logging
 logging.basicConfig()
 logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
-# Création de l'URL de connexion avec plus de détails
 DATABASE_URL = f"postgresql://{settings.DB_USER}:{settings.DB_PASSWORD}@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}"
 
 print(f"Tentative de connexion à : postgresql://{settings.DB_USER}:****@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}")
@@ -19,7 +18,6 @@ try:
         pool_size=10,
         max_overflow=20
     )
-    # Tester la connexion
     with engine.connect() as conn:
         print("Connexion réussie !")
 except Exception as e:

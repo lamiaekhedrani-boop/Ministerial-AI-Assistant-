@@ -8,7 +8,7 @@ import WelcomeScreen from './components/WelcomeScreen';
 import AdminPanel from '../admin/AdminPanel';
 import ProfileMenu from '../profile/ProfileMenu';
 import { useAuth } from '../auth/AuthProvider';
-import { useChat } from './hooks/useChat';
+import { useChat } from "../../shared/hooks/useChat";
 
 const ChatApp = () => {
   const { user } = useAuth();

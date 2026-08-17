@@ -30,6 +30,7 @@ pydantic_core==2.46.4
 python-dotenv==1.2.2
 python-jose==3.5.0
 python-keycloak==7.1.1
+python-multipart
 requests==2.34.2
 requests-toolbelt==1.0.0
 rsa==4.9.1

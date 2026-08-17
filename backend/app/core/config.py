@@ -27,4 +27,7 @@ class Settings:
     SECRET_KEY: str = os.getenv("SECRET_KEY", "14a82b065d4df28497de6c73eabf29b3572bbb7fb63ca839b817b370da77a731")
     ALGORITHM: str = "RS256"
 
+    # Backend RAG
+    RAG_BACKEND_URL: str = os.getenv("RAG_BACKEND_URL", "http://127.0.0.1:8001")
+
 settings = Settings()

@@ -4,18 +4,10 @@ from typing import List, Optional
 from pydantic import BaseModel
 
 
-# ========================================
-# REQUÊTE : ENVOYER UN MESSAGE
-# ========================================
-
 class MessageRequest(BaseModel):
     message: str
     session_id: Optional[str] = None
 
-
-# ========================================
-# RÉPONSE : MESSAGE
-# ========================================
 
 class MessageResponse(BaseModel):
     id: str
@@ -28,10 +20,6 @@ class MessageResponse(BaseModel):
         from_attributes = True
 
 
-# ========================================
-# RÉPONSE : SESSION
-# ========================================
-
 class SessionResponse(BaseModel):
     id: str
     title: str
@@ -43,26 +31,14 @@ class SessionResponse(BaseModel):
         from_attributes = True
 
 
-# ========================================
-# RÉPONSE : CHAT
-# ========================================
-
 class ChatResponse(BaseModel):
     reply: str
     session_id: str
 
 
-# ========================================
-# CRÉER UNE SESSION
-# ========================================
-
 class SessionCreate(BaseModel):
     title: str
 
-
-# ========================================
-# RENOMMER UNE SESSION
-# ========================================
 
 class SessionRenameRequest(BaseModel):
     title: str

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import chatService from '../services/chatService';
-import { useAuth } from '../../auth/AuthProvider';
+import chatService from '../../services/chatService';
+import { useAuth } from '../../modules/auth/AuthProvider';
 
 export const useChat = () => {
   const { isAuthenticated } = useAuth();

@@ -32,14 +32,13 @@ export default function AuthProvider({ children }) {
         tokenParsed.name ||
         tokenParsed.preferred_username ||
         'Utilisateur',
-
       roles: tokenParsed.realm_access?.roles || [],
     };
 
     setUser(userData);
 
     return userData;
-  }
+  };
 
   useEffect(() => {
     if (isRun.current) {
@@ -56,29 +55,19 @@ export default function AuthProvider({ children }) {
         pkceMethod: 'S256',
       })
       .then((authenticated) => {
-        console.log(
-          'Keycloak authenticated:',
-          authenticated
-        );
+        console.log('Keycloak authenticated:', authenticated);
 
         setIsAuthenticated(authenticated);
 
         if (authenticated && keycloak.token) {
           const userData = loadUser();
-
-          console.log(
-            'Utilisateur connecté:',
-            userData
-          );
+          console.log('Utilisateur connecté:', userData);
         }
 
         setIsInitialized(true);
       })
       .catch((error) => {
-        console.error(
-          'Erreur initialisation Keycloak:',
-          error
-        );
+        console.error('Erreur initialisation Keycloak:', error);
 
         setIsAuthenticated(false);
         setUser(null);
@@ -94,52 +83,37 @@ export default function AuthProvider({ children }) {
         .updateToken(30)
         .then((refreshed) => {
           if (refreshed) {
-            console.log(
-              ' Token Keycloak rafraîchi'
-            );
-
+            console.log(' Token Keycloak rafraîchi');
             loadUser();
           }
         })
         .catch((error) => {
-          console.error(
-            '❌ Impossible de rafraîchir le token:',
-            error
-          );
+          console.error(' Impossible de rafraîchir le token:', error);
 
           setIsAuthenticated(false);
           setUser(null);
-
           keycloak.clearToken();
         });
     }, 60000);
 
     keycloak.onTokenExpired = () => {
-      console.log(
-        'Token expiré, tentative de renouvellement...'
-      );
+      console.log('Token expiré, tentative de renouvellement...');
 
       keycloak
         .updateToken(30)
         .then((refreshed) => {
           if (refreshed) {
-            console.log(
-              'Token renouvelé après expiration'
-            );
+            console.log('Token renouvelé après expiration');
 
             setIsAuthenticated(true);
             loadUser();
           }
         })
         .catch((error) => {
-          console.error(
-            ' Impossible de renouveler le token:',
-            error
-          );
+          console.error(' Impossible de renouveler le token:', error);
 
           setIsAuthenticated(false);
           setUser(null);
-
           keycloak.clearToken();
         });
     };
@@ -154,8 +128,10 @@ export default function AuthProvider({ children }) {
 
     setIsAuthenticated(false);
     setUser(null);
-
-    keycloak.logout();
+    
+    keycloak.logout({
+      redirectUri: window.location.origin
+    });
   };
 
   if (!isInitialized) {
@@ -173,6 +149,7 @@ export default function AuthProvider({ children }) {
       </div>
     );
   }
+
   return (
     <AuthContext.Provider
       value={{

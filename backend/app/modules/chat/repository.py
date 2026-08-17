@@ -9,9 +9,6 @@ class ChatRepository:
     def __init__(self, db: Session):
         self.db = db
 
-    # ========================================
-    # CRÉER UNE SESSION
-    # ========================================
     def create_session(self, user_id: str, title: str) -> ChatSession:
         session = ChatSession(
             user_id=user_id,
@@ -24,9 +21,6 @@ class ChatRepository:
 
         return session
 
-    # ========================================
-    # RÉCUPÉRER UNE SESSION
-    # ========================================
     def get_session(
         self,
         session_id: str,
@@ -42,9 +36,6 @@ class ChatRepository:
             .first()
         )
 
-    # ========================================
-    # RÉCUPÉRER LES SESSIONS D'UN UTILISATEUR
-    # ========================================
     def get_user_sessions(
         self,
         user_id: str,
@@ -59,9 +50,6 @@ class ChatRepository:
             .all()
         )
 
-    # ========================================
-    # AJOUTER UN MESSAGE
-    # ========================================
     def add_message(
         self,
         session_id: str,
@@ -81,9 +69,6 @@ class ChatRepository:
 
         return message
 
-    # ========================================
-    # RÉCUPÉRER LES MESSAGES D'UNE SESSION
-    # ========================================
     def get_session_messages(
         self,
         session_id: str
@@ -96,9 +81,6 @@ class ChatRepository:
             .all()
         )
 
-    # ========================================
-    # METTRE À JOUR LA DATE DE MODIFICATION
-    # ========================================
     def update_session_updated_at(
         self,
         session_id: str
@@ -114,9 +96,6 @@ class ChatRepository:
             session.updated_at = datetime.utcnow()
             self.db.commit()
 
-    # ========================================
-    # SUPPRIMER UNE SESSION
-    # ========================================
     def delete_session(
         self,
         session_id: str,
@@ -136,9 +115,6 @@ class ChatRepository:
 
         return True
 
-    # ========================================
-    # RENOMMER UNE SESSION
-    # ========================================
     def rename_session(
         self,
         session_id: str,

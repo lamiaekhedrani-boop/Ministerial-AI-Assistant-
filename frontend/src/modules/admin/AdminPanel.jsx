@@ -12,7 +12,6 @@ const AdminPanel = () => {
 
   const [activeTab, setActiveTab] = useState('users');
 
-  // Sécurité supplémentaire
   if (!isAdmin) {
     return null;
   }

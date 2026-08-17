@@ -236,7 +236,6 @@ function Sidebar({
         dir={dir}
       >
         <div className="sidebar-content">
-          {/* ===== BRANDING ===== */}
           <div className="sidebar-brand">
             <span className="sidebar-brand-name">
               DALIL AI

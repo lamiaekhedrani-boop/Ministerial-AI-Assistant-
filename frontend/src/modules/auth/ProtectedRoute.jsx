@@ -1,14 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useAuth } from './AuthProvider';
 
 export const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, keycloak } = useAuth();
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      keycloak.login();
-    }
-  }, [isAuthenticated, keycloak]);
+  const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
     return (

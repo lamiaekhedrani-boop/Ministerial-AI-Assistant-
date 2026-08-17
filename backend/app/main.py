@@ -6,7 +6,7 @@ from app.modules.auth.router import router as auth_router
 from app.core.database import engine
 from app.modules.chat.models import Base
 from app.modules.admin.router import router as admin_router
-#from app.modules.rag.router import router as rag_router
+from app.modules.rag.router import router as rag_router
 
 # Créer les tables
 Base.metadata.create_all(bind=engine)
@@ -25,7 +25,7 @@ app.add_middleware(
 # Inclusion des routeurs
 app.include_router(chat_router)
 app.include_router(auth_router)
-#app.include_router(rag_router)
+app.include_router(rag_router)
 
 @app.get("/")
 def read_root():

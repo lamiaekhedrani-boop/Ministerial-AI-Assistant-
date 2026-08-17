@@ -6,18 +6,14 @@ function ChatHeader({ toggleSidebar }) {
 
   return (
     <header className="chat-header">
-
-      {/* Bouton menu avec le symbole du ministère */}
       <button
         className="menu-button"
         onClick={toggleSidebar}
         title={t('chat.menu')}
         aria-label={t('chat.menu')}
       >
-        {/* Symbole normal */}
         <span className="menu-logo">🏛️</span>
 
-        {/* Hamburger visible au survol */}
         <svg
           className="menu-hamburger"
           viewBox="0 0 24 24"

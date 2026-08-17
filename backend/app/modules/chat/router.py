@@ -21,10 +21,6 @@ router = APIRouter(
 )
 
 
-# ========================================
-# ENVOYER UN MESSAGE
-# ========================================
-
 @router.post(
     "/send",
     response_model=ChatResponse
@@ -34,7 +30,6 @@ async def send_message(
     current_user: dict = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Envoyer un message et recevoir la réponse."""
 
     service = ChatService(db)
 
@@ -60,10 +55,6 @@ async def send_message(
         )
 
 
-# ========================================
-# RÉCUPÉRER LES SESSIONS
-# ========================================
-
 @router.get(
     "/sessions",
     response_model=List[SessionResponse]
@@ -72,7 +63,6 @@ async def get_sessions(
     current_user: dict = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Récupérer toutes les sessions de l'utilisateur."""
 
     service = ChatService(db)
 
@@ -80,10 +70,6 @@ async def get_sessions(
         current_user["sub"]
     )
 
-
-# ========================================
-# RÉCUPÉRER LES MESSAGES D'UNE SESSION
-# ========================================
 
 @router.get(
     "/sessions/{session_id}/messages",
@@ -94,7 +80,6 @@ async def get_session_messages(
     current_user: dict = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Récupérer tous les messages d'une session."""
 
     service = ChatService(db)
 
@@ -117,10 +102,6 @@ async def get_session_messages(
         )
 
 
-# ========================================
-# SUPPRIMER UNE SESSION
-# ========================================
-
 @router.delete(
     "/sessions/{session_id}"
 )
@@ -129,7 +110,6 @@ async def delete_session(
     current_user: dict = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Supprimer une session de chat."""
 
     service = ChatService(db)
 
@@ -160,10 +140,6 @@ async def delete_session(
         )
 
 
-# ========================================
-# RENOMMER UNE SESSION
-# ========================================
-
 @router.put(
     "/sessions/{session_id}"
 )
@@ -173,7 +149,6 @@ async def rename_session(
     current_user: dict = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Renommer une session de chat."""
 
     service = ChatService(db)
 

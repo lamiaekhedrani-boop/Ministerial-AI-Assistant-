@@ -1,4 +1,4 @@
-import keycloak from '../../auth/keycloak';
+import keycloak from '../modules/auth/keycloak';
 
 const API_BASE_URL =
   import.meta.env.VITE_API_URL || 'http://localhost:8000';
@@ -8,9 +8,6 @@ class ChatService {
     this.baseUrl = API_BASE_URL;
   }
 
-  // ========================================
-  // RÉCUPÉRER LE TOKEN KEYCLOAK
-  // ========================================
   async getAuthToken() {
     if (!keycloak.authenticated) {
       return null;
@@ -26,9 +23,6 @@ class ChatService {
     }
   }
 
-  // ========================================
-  // HEADERS
-  // ========================================
   async getHeaders() {
     const token = await this.getAuthToken();
 
@@ -41,9 +35,6 @@ class ChatService {
     };
   }
 
-  // ========================================
-  // ENVOYER UN MESSAGE
-  // ========================================
   async sendMessage(message, sessionId = null) {
     const headers = await this.getHeaders();
 
@@ -77,9 +68,6 @@ class ChatService {
     return await response.json();
   }
 
-  // ========================================
-  // RÉCUPÉRER LES SESSIONS
-  // ========================================
   async getSessions() {
     const headers = await this.getHeaders();
 
@@ -108,9 +96,6 @@ class ChatService {
     return await response.json();
   }
 
-  // ========================================
-  // RÉCUPÉRER LES MESSAGES D'UNE SESSION
-  // ========================================
   async getSessionMessages(sessionId) {
     if (!sessionId) {
       throw new Error('Session ID manquant.');
@@ -143,9 +128,6 @@ class ChatService {
     return await response.json();
   }
 
-  // ========================================
-  // SUPPRIMER UNE SESSION
-  // ========================================
   async deleteSession(sessionId) {
     if (!sessionId) {
       throw new Error('Session ID manquant.');
@@ -179,9 +161,6 @@ class ChatService {
     return await response.json();
   }
 
-  // ========================================
-  // RENOMMER UNE SESSION
-  // ========================================
   async renameSession(sessionId, newTitle) {
     if (!sessionId) {
       throw new Error('Session ID manquant.');
