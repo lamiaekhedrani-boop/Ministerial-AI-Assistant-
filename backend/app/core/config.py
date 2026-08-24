@@ -9,7 +9,7 @@ class Settings:
     DB_PORT: int = int(os.getenv("DB_PORT", "5432"))
     DB_NAME: str = os.getenv("DB_NAME", "ministere_chat")
     DB_USER: str = os.getenv("DB_USER", "lamiae")
-    DB_PASSWORD: str = os.getenv("DB_PASSWORD", "helloDataBase")
+    DB_PASSWORD: str = os.getenv("DB_PASSWORD") 
     
     # Keycloak - Client Public (React)
     KEYCLOAK_URL: str = os.getenv("KEYCLOAK_URL", "http://localhost:8080")
@@ -18,16 +18,12 @@ class Settings:
     
     # Keycloak - Client Admin (FastAPI Service Account)
     KEYCLOAK_ADMIN_CLIENT_ID: str = os.getenv("KEYCLOAK_ADMIN_CLIENT_ID", "fastapi-backend")
-    KEYCLOAK_ADMIN_CLIENT_SECRET: str = os.getenv("KEYCLOAK_ADMIN_CLIENT_SECRET", "")
+    KEYCLOAK_ADMIN_CLIENT_SECRET: str = os.getenv("KEYCLOAK_ADMIN_CLIENT_SECRET")
     
     # CORS
     CORS_ORIGINS: list = ["http://localhost:5173", "http://localhost:3000"]
     
-    # Security
-    SECRET_KEY: str = os.getenv("SECRET_KEY", "14a82b065d4df28497de6c73eabf29b3572bbb7fb63ca839b817b370da77a731")
-    ALGORITHM: str = "RS256"
-
     # Backend RAG
-    RAG_BACKEND_URL: str = os.getenv("RAG_BACKEND_URL", "http://127.0.0.1:8001")
+    RAG_BACKEND_URL: str = os.getenv("RAG_BACKEND_URL", "http://rag_backend:8000")
 
 settings = Settings()

@@ -1,5 +1,6 @@
 # Fichiers secrets
 .env
+.env.rag
 
 # Dépendances Backend (FastAPI)
 venv/
