@@ -1,14 +1,13 @@
-
 # Projet Ministère - Assistant IA RAG
 
 Ce projet est une application full-stack conteneurisée permettant de déployer un assistant conversationnel basé sur une architecture RAG (Retrieval-Augmented Generation).
 
 ## Architecture
 
-L'application est divisée en plusieurs microservices orchestrés via Docker Compose :
-* Frontend : Interface utilisateur développée en React (Vite).
-* Backend API : API principale développée avec FastAPI.
-* Backend RAG : Module d'intelligence artificielle interfaçant avec les modèles LLM (Groq).
+L'application est orchestrée via Docker Compose :
+* Frontend : React (Vite).
+* Backend API : FastAPI.
+* Backend RAG : Module IA (Groq).
 * Base de données : PostgreSQL.
 * Authentification : Serveur d'identité Keycloak avec thème personnalisé.
 
@@ -17,7 +16,7 @@ L'application est divisée en plusieurs microservices orchestrés via Docker Com
 * Docker et Docker Compose
 * Git
 
-## Installation et configuration
+## 1. Installation
 
 1. Clonage du dépôt :
 ```bash
@@ -27,45 +26,35 @@ cd projet-ministere
 ```
 
 2. Fichiers d'environnement :
-Les fichiers de configuration sensibles sont ignorés par Git. Vous devez placer les fichiers suivants à la racine du projet avant le lancement :
-
-* `.env` : Configuration globale (identifiants PostgreSQL, URLs, et clés Keycloak).
-* `.env.rag` : Configuration du module IA (Clé API Groq et noms des modèles).
-
-3. Démarrage de l'infrastructure :
+Placer les deux fichiers fournis séparément (`.env` et `.env.rag`) à la racine du projet.
+3. Démarrage :
 
 ```bash
 docker-compose up -d --build
 
 ```
 
-## Configuration Post-Déploiement (Premier lancement)
+## 2. Configuration Initiale (Premier lancement)
 
-Lors de la première installation ou de la recréation des volumes, les étapes suivantes sont obligatoires pour garantir le fonctionnement du pipeline :
+Lors du tout premier lancement, la base de données est vierge. Deux étapes rapides sont nécessaires pour utiliser le Chatbot :
 
-1. Configuration du Client Secret (Backend) :
+**Étape A : Créer un compte de test**
 
-* Accéder à la console d'administration Keycloak (http://localhost:8080).
-* Naviguer vers les paramètres du client dédié au backend (ex: `fastapi-backend`).
-* Dans l'onglet "Credentials", copier le "Client Secret".
-* Mettre à jour la variable `KEYCLOAK_ADMIN_CLIENT_SECRET` dans le fichier `.env` puis redémarrer l'infrastructure.
+* Accéder à Keycloak (http://localhost:8080).
+* Se connecter avec les identifiants administrateurs fournis dans le fichier `.env` (`KEYCLOAK_ADMIN`).
+* Créer un nouvel utilisateur dans le realm `ministere-chatbot` (lui définir un mot de passe dans l'onglet Credentials).
 
-2. Structure du Thème Keycloak :
-Pour être détecté par Keycloak, le thème d'authentification personnalisé doit respecter l'arborescence stricte suivante : le fichier `theme.properties` et le dossier des ressources doivent impérativement se trouver dans un sous-dossier nommé `login` (ex: `/keycloak-theme/login/`).
-3. Initialisation de la base RAG :
-Avant toute utilisation du chatbot, il est nécessaire d'initialiser les données via la page "Gestion" du frontend :
+**Étape B : Initialiser la base RAG**
 
-* Ajouter le compte utilisateur dans la base de données interne.
-* Uploader au moins un document de référence.
-*Note : Si la base documentaire est vide, le module de recherche vectorielle du RAG générera une erreur interne 500.*
+* Se connecter au Frontend (http://localhost:5173) avec le compte tout juste créé.
+* Aller dans l'onglet "Gestion" > "Documents".
+* Uploader au moins un document de référence pour initialiser la recherche vectorielle (sans document, l'IA retournera une erreur 500).
 
 ## Accès aux services
 
-Une fois l'infrastructure démarrée et configurée, les services sont accessibles aux adresses suivantes :
-
 * Frontend (Interface Chat & Gestion) : http://localhost:5173
-* Backend API (Documentation Swagger) : http://localhost:8000/docs
-* Backend RAG (Documentation Swagger) : http://localhost:8001/docs
-* Console d'administration Keycloak : http://localhost:8080
+* Backend API (Swagger) : http://localhost:8000/docs
+* Backend RAG (Swagger) : http://localhost:8001/docs
+* Console Keycloak : http://localhost:8080
 
 ```
